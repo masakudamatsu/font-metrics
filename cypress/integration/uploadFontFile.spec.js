@@ -11,7 +11,7 @@ describe('Uploading a font file', () => {
     cy.fixture(fontFileName, 'binary')
       .then(Cypress.Blob.binaryStringToBlob)
       .then((fontFile) => {
-        cy.get('.file-input').upload({
+        cy.get('[data-test=fontFileUploader]').upload({
           fileContent: fontFile,
           fileName: fontFileName,
           mimeType: 'font/ttf',
