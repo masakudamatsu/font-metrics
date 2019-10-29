@@ -5,7 +5,7 @@ export default class FontFileUploader extends React.Component {
     return (
       <div>
         <input type="file"
-               data-test="fontFileUploader" />
+               data-test="FontFileUploader" />
       </div>
     );
   }
