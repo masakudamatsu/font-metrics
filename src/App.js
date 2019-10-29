@@ -1,9 +1,11 @@
 import React from 'react';
-
+import FontFileUploader from './components/FontFileUploader';
+import FontNameDisplay from './components/FontNameDisplay';
 function App() {
   return (
     <div className="App">
-      Hello, world!
+      <FontFileUploader />
+      <FontNameDisplay />
     </div>
   );
 }
