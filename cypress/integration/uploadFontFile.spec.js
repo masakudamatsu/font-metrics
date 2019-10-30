@@ -13,7 +13,7 @@ describe('Uploading a font file', () => {
       cy.fixture(fontFileName, 'binary')
         .then(Cypress.Blob.binaryStringToBlob)
         .then((fontFile) => {
-          cy.get('[data-test=FontFileUploader]').upload({
+          cy.get('[data-testid=FontFileUploader]').upload({
             fileContent: fontFile,
             fileName: fontFileName,
             mimeType: 'font/ttf',
@@ -31,7 +31,7 @@ describe('Uploading a font file', () => {
       cy.fixture(fontFileName, 'binary')
         .then(Cypress.Blob.binaryStringToBlob)
         .then((fontFile) => {
-          cy.get('[data-test=FontFileUploader]').upload({
+          cy.get('[data-testid=FontFileUploader]').upload({
             fileContent: fontFile,
             fileName: fontFileName,
             mimeType: 'font/ttf',
