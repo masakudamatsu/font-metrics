@@ -5,7 +5,7 @@ export default class FontNameDisplay extends React.Component {
     return (
       <div>
         <p data-test="FontNameDisplay">
-          Open Sans Regular
+          {this.props.fontName}
         </p>
       </div>
     );
