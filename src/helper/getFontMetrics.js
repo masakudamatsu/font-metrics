@@ -11,6 +11,6 @@ const getFontMetrics = (font) => {
   } catch(err) {
     console.log(err);
   }
-}
+};
 
 export default getFontMetrics;

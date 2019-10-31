@@ -13,9 +13,7 @@ describe('getFontMetrics', () => {
     it('When the font file is Open Sans Regular', () => {
       // Setup
       const fontFilePath = '../../cypress/fixtures/OpenSans-Regular.ttf';
-
       const opentype = require('opentype.js');
-
       opentype.load(fontFilePath, function(err, font) {
         if (err) {
           console.log('Font could not be loaded: ' + err);
@@ -28,7 +26,23 @@ describe('getFontMetrics', () => {
           expect(fontMetrics.name).toBe('Open Sans Regular');
         }
       });
+    });
+    it('When the font file is Roboto Slab Light', () => {
+      // Setup
+      const fontFilePath = '../../cypress/fixtures/RobotoSlab-Light.ttf';
+      const opentype = require('opentype.js');
+      opentype.load(fontFilePath, function(err, font) {
+        if (err) {
+          console.log('Font could not be loaded: ' + err);
+        } else {
 
+          // Execute
+          const fontMetrics = getFontMetrics(font);
+
+          // Verify
+          expect(fontMetrics.name).toBe('Roboto Slab Light');
+        }
+      });
     });
   });
 });
