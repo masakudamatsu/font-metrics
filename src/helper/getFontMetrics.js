@@ -7,6 +7,7 @@ const getFontMetrics = (font) => {
     const namingTable = font.tables[name];
     const fontName = namingTable[fullName];
     return fontName;
+
   } catch(err) {
     console.log(err);
   }
