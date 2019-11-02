@@ -14,6 +14,7 @@ export default class FontFileUploader extends React.Component {
       <div>
         <input type="file"
                data-testid="FontFileUploader"
+               accept=".otf, .ttf, .woff"
                onChange={this.handleChange}
         />
       </div>
