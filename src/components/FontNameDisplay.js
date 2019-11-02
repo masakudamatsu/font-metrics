@@ -4,7 +4,7 @@ export default class FontNameDisplay extends React.Component {
   render() {
     return (
       <div>
-        <p data-test="FontNameDisplay">
+        <p data-testid="FontNameDisplay">
           {this.props.fontName}
         </p>
       </div>
