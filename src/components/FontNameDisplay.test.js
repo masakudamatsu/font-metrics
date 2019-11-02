@@ -6,6 +6,8 @@ import {
 import FontNameDisplay from './FontNameDisplay';
 
 describe('<FontNameDisplay />', () => {
+  afterEach(cleanup);
+
   it('Displays this.props.fontName', () => {
     const inputText = 'Awesome Font';
     const expectedText = 'Awesome Font';
