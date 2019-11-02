@@ -12,6 +12,14 @@ class App extends React.Component {
     this.fileChangeHandler = this.fileChangeHandler.bind(this);
   }
   fileChangeHandler(files) {
+    // Edge case handling
+    if (files[0].type !== 'font/woff' && files[0].type !== 'font/ttf' && files[0].type !== 'font/otf') {
+      this.setState({
+        fontName: 'Please upload an OTF, TTF, or WOFF file.'
+      });
+      return;
+    }
+    // With font files uploaded
     let fontNameObtained;
     const fontFile = files[0];
     const reader = new FileReader();
