@@ -10,24 +10,19 @@ class App extends React.Component {
     super(props);
     this.state = { fontName: ''};
     this.fileChangeHandler = this.fileChangeHandler.bind(this);
+    this.invalidFileHandler = this.invalidFileHandler.bind(this);
   }
-  fileChangeHandler(files) {
-    // Edge case handling
-    const uploadedFileName = files[0].name;
-    const acceptableFileExtensions = /(\.ttf|\.otf|\.woff)$/i;
-    if (!acceptableFileExtensions.test(uploadedFileName)) {
-      this.setState({
-        fontName: 'Please upload an OpenType Font (.otf), TrueType Font (.ttf), or Web Open Font Format (.woff) file.'
-      });
-      return;
-    }
+  invalidFileHandler() {
+    this.setState({
+      fontName: 'Please upload an OpenType Font (.otf), TrueType Font (.ttf), or Web Open Font Format (.woff) file.'
+    });
+  }
+  fileChangeHandler(fontFile) {
     // With font files uploaded
-    let fontNameObtained;
-    const fontFile = files[0];
     const reader = new FileReader();
     reader.onload = (function(e) {
       const font = opentype.parse(e.target.result, {lowMemory:true});
-      fontNameObtained = getFontMetrics(font);
+      const fontNameObtained = getFontMetrics(font);
       this.setState({
         fontName: fontNameObtained
       });
@@ -37,7 +32,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <FontFileUploader onChange={this.fileChangeHandler} />
+        <FontFileUploader onChange={this.fileChangeHandler}
+        onChangeWithInvalidFile={this.invalidFileHandler} />
         <FontNameDisplay fontName={this.state.fontName} />
       </div>
     );
