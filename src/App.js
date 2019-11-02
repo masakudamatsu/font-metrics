@@ -17,7 +17,7 @@ class App extends React.Component {
     const acceptableFileExtensions = /(\.ttf|\.otf|\.woff)$/i;
     if (!acceptableFileExtensions.test(uploadedFileName)) {
       this.setState({
-        fontName: 'Please upload an OTF, TTF, or WOFF file.'
+        fontName: 'Please upload an OpenType Font (.otf), TrueType Font (.ttf), or Web Open Font Format (.woff) file.'
       });
       return;
     }

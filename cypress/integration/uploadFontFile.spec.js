@@ -7,6 +7,7 @@ describe('Uploading a file in the wrong format', () => {
   it('Asks the user to upload an OTF, TTF, or WOFF file', () => {
 
     const wrongFile = 'wrongfile.txt';
+    const expectedMessage = 'Please upload an OpenType Font (.otf), TrueType Font (.ttf), or Web Open Font Format (.woff) file.';
     cy.fixture(wrongFile).then(fileContent => {
       cy.get('[data-testid=FontFileUploader]').upload({
         fileContent: fileContent,
@@ -15,7 +16,7 @@ describe('Uploading a file in the wrong format', () => {
       });
     });
 
-    cy.contains('Please upload an OTF, TTF, or WOFF file.');
+    cy.contains(expectedMessage);
   });
 
 });
