@@ -1,8 +1,11 @@
 import React from 'react';
+
 import FontFileUploader from './components/FontFileUploader';
-// import readFontFile from './helper/readFontFile';
-import getFontMetrics from './helper/getFontMetrics';
+import XheightBox from './components/XheightBox';
+import FontSizeBox from './components/FontSizeBox';
 import FontNameDisplay from './components/FontNameDisplay';
+
+import getFontMetrics from './helper/getFontMetrics';
 const opentype = require('opentype.js');
 
 // Set up the canvas
@@ -19,24 +22,35 @@ const fontSize = 16; // in pixels
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { fontName: ''};
+    this.state = {
+      fontName: '',
+      sxHeight: '',
+      unitsPerEm: '',
+      userFontSize: '',
+      userXHeight: ''
+    };
     this.fileChangeHandler = this.fileChangeHandler.bind(this);
     this.invalidFileHandler = this.invalidFileHandler.bind(this);
+    this.xHeightToFontSize = this.xHeightToFontSize.bind(this);
   }
+
   invalidFileHandler() {
     this.setState({
       fontName: 'Please upload an OpenType Font (.otf), TrueType Font (.ttf), or Web Open Font Format (.woff) file.'
     });
   }
+
   fileChangeHandler(fontFile) {
     // With font files uploaded
     const reader = new FileReader();
     reader.onload = (function(e) {
       const font = opentype.parse(e.target.result, {lowMemory:true});
-      // Display font name
-      const fontNameObtained = getFontMetrics(font);
+      // Save font metrics as the state object
+      const fontMetrics = getFontMetrics(font);
       this.setState({
-        fontName: fontNameObtained
+        fontName: fontMetrics.fontName,
+        sxHeight: fontMetrics.sxHeight,
+        unitsPerEm: fontMetrics.unitsPerEm
       });
       // Render paragraphs
       const canvas = this.refs.canvas;
@@ -65,11 +79,26 @@ class App extends React.Component {
     }).bind(this);
     reader.readAsArrayBuffer(fontFile);
   }
+
+  xHeightToFontSize(xHeightValue) {
+    const newFontSize = ((this.state.unitsPerEm / this.state.sxHeight) * xHeightValue).toFixed(4);
+    this.setState({
+      userFontSize: newFontSize,
+      userXHeight: xHeightValue
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <FontFileUploader onChange={this.fileChangeHandler}
         onChangeWithInvalidFile={this.invalidFileHandler} />
+        <XheightBox
+          xHeight={this.state.userXHeight}
+          xHeightToFontSize={this.xHeightToFontSize}/>
+        <FontSizeBox
+          fontSize={this.state.userFontSize}
+        />
         <FontNameDisplay fontName={this.state.fontName} />
         <canvas
                 ref="canvas"
