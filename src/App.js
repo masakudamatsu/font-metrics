@@ -19,7 +19,8 @@ class App extends React.Component {
       sxHeight: '',
       unitsPerEm: '',
       userFontSize: '',
-      userXHeight: ''
+      userXHeight: '',
+      fontLoadFailure: false
     };
     this.fileChangeHandler = this.fileChangeHandler.bind(this);
     this.invalidFileHandler = this.invalidFileHandler.bind(this);
@@ -51,6 +52,9 @@ class App extends React.Component {
       newFontFace.load().then((loaded_face) => {
         document.fonts.add(loaded_face);
       }).catch((error) => {
+        this.setState({
+          fontLoadFailure: true
+        });
         console.log('The uploaded font has failed to be loaded,');
       });
     }).bind(this);
@@ -79,7 +83,8 @@ class App extends React.Component {
         <FontNameDisplay fontName={this.state.fullName} />
         <SampleParagraphs
           fontFamily={this.state.fontFamily}
-          fontWeight={this.state.usWeightClass} />
+          fontWeight={this.state.usWeightClass}
+          fontLoadFailure={this.state.fontLoadFailure}/>
       </div>
     );
   }
