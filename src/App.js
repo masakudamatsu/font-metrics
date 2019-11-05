@@ -25,6 +25,7 @@ class App extends React.Component {
     this.fileChangeHandler = this.fileChangeHandler.bind(this);
     this.invalidFileHandler = this.invalidFileHandler.bind(this);
     this.xHeightToFontSize = this.xHeightToFontSize.bind(this);
+    this.fontSizeToXHeight = this.fontSizeToXHeight.bind(this);
   }
 
   invalidFileHandler() {
@@ -69,6 +70,14 @@ class App extends React.Component {
     });
   }
 
+  fontSizeToXHeight(fontSizeValue) {
+    const newXHeight = ((this.state.sxHeight / this.state.unitsPerEm ) * fontSizeValue).toFixed(4);
+    this.setState({
+      userFontSize: fontSizeValue,
+      userXHeight: newXHeight
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -79,7 +88,7 @@ class App extends React.Component {
           xHeightToFontSize={this.xHeightToFontSize}/>
         <FontSizeBox
           fontSize={this.state.userFontSize}
-        />
+          fontSizeToXHeight={this.fontSizeToXHeight} />
         <FontNameDisplay fontName={this.state.fullName} />
         <SampleParagraphs
           fontFamily={this.state.fontFamily}
