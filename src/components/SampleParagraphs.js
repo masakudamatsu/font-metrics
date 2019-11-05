@@ -6,12 +6,13 @@ const sampleParagraphs = 'different letter combinations, about what makes great 
 
 export default class SampleParagraphs extends React.Component {
   render() {
-    const fontFamily = {
+    const fontStyles = {
       fontFamily: this.props.fontFamily,
+      fontWeight: this.props.fontWeight
     };
     return (
       <p data-testid="SampleParagraph"
-         style={fontFamily}>
+         style={fontStyles}>
         {sampleParagraphs}
       </p>
     );

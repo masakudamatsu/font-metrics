@@ -15,6 +15,7 @@ class App extends React.Component {
     this.state = {
       fontFamily: '',
       fullName: '',
+      usWeightClass: '',
       sxHeight: '',
       unitsPerEm: '',
       userFontSize: '',
@@ -41,6 +42,7 @@ class App extends React.Component {
       this.setState({
         fontFamily: fontMetrics.fontFamily,
         fullName: fontMetrics.fullName,
+        usWeightClass: fontMetrics.usWeightClass,
         sxHeight: fontMetrics.sxHeight,
         unitsPerEm: fontMetrics.unitsPerEm
       });
@@ -75,7 +77,9 @@ class App extends React.Component {
           fontSize={this.state.userFontSize}
         />
         <FontNameDisplay fontName={this.state.fullName} />
-        <SampleParagraphs fontFamily={this.state.fontFamily}/>
+        <SampleParagraphs
+          fontFamily={this.state.fontFamily}
+          fontWeight={this.state.usWeightClass} />
       </div>
     );
   }
