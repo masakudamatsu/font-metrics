@@ -46,6 +46,7 @@ describe('Uploading a font file', () => {
 
     it('Renders sample paragraphs in the uploaded font', () => {
       cy.get('[data-testid=SampleParagraph]').should('have.css', 'font-family', '"Open Sans"');
+      cy.get('[data-testid=SampleParagraph]').should('have.css', 'font-weight', '400');
     });
 
   });
@@ -70,7 +71,7 @@ describe('Uploading a font file', () => {
     });
     it('Renders sample paragraphs in the uploaded font', () => {
       cy.get('[data-testid=SampleParagraph]').should('have.css', 'font-family', '"Roboto Slab"');
-    });
+      cy.get('[data-testid=SampleParagraph]').should('have.css', 'font-weight', '300');    });
   });
 
 });
