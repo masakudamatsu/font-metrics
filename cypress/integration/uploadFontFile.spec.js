@@ -23,12 +23,13 @@ describe('Uploading a file in the wrong format', () => {
 
 describe('Uploading a font file', () => {
 
-  describe('Displays the font name', () => {
+  describe('When it is Open Sans Regular', () => {
 
-    it('When it is Open Sans Regular', () => {
+    it('Displays the font name', () => {
+      // Setup
       const fontFileName = 'OpenSans-Regular.ttf';
       const expectedFontName = 'Open Sans Regular';
-
+      // Execute
       cy.fixture(fontFileName, 'binary')
         .then(Cypress.Blob.binaryStringToBlob)
         .then((fontFile) => {
@@ -39,27 +40,37 @@ describe('Uploading a font file', () => {
             encoding: 'utf8'
           });
         });
-
+      // Verify
       cy.contains(expectedFontName);
     });
 
-    it('When it is Roboto Slab Light', () => {
-      const fontFileName = 'RobotoSlab-Light.ttf';
-      const expectedFontName = 'Roboto Slab Light';
-
-      cy.fixture(fontFileName, 'binary')
-        .then(Cypress.Blob.binaryStringToBlob)
-        .then((fontFile) => {
-          cy.get('[data-testid=FontFileUploader]').upload({
-            fileContent: fontFile,
-            fileName: fontFileName,
-            mimeType: 'font/ttf',
-            encoding: 'utf8'
-          });
-        });
-
-      cy.contains(expectedFontName);
+    it('Renders sample paragraphs in the uploaded font', () => {
+      cy.get('[data-testid=SampleParagraph]').should('have.css', 'font-family', '"Open Sans"');
     });
 
   });
+  describe('When it is Roboto Slab Light', () => {
+    it('Displays the font name', () => {
+      // Setup
+      const fontFileName = 'RobotoSlab-Light.ttf';
+      const expectedFontName = 'Roboto Slab Light';
+      // Execute
+      cy.fixture(fontFileName, 'binary')
+        .then(Cypress.Blob.binaryStringToBlob)
+        .then((fontFile) => {
+          cy.get('[data-testid=FontFileUploader]').upload({
+            fileContent: fontFile,
+            fileName: fontFileName,
+            mimeType: 'font/ttf',
+            encoding: 'utf8'
+          });
+        });
+      // Verify
+      cy.contains(expectedFontName);
+    });
+    it('Renders sample paragraphs in the uploaded font', () => {
+      cy.get('[data-testid=SampleParagraph]').should('have.css', 'font-family', '"Roboto Slab"');
+    });
+  });
+
 });
