@@ -83,6 +83,7 @@ class App extends React.Component {
         <FontNameDisplay fontName={this.state.fullName} />
         <SampleParagraphs
           fontFamily={this.state.fontFamily}
+          fontSize={this.state.userFontSize}
           fontWeight={this.state.usWeightClass}
           fontLoadFailure={this.state.fontLoadFailure}/>
       </div>

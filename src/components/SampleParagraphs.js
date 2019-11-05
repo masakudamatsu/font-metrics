@@ -13,6 +13,7 @@ export default class SampleParagraphs extends React.Component {
     } else {
       const fontStyles = {
         fontFamily: this.props.fontFamily,
+        fontSize: Number(this.props.fontSize),
         fontWeight: this.props.fontWeight
       };
       return (
