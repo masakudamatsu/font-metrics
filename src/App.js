@@ -81,11 +81,12 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <FontFileUploader onChange={this.fileChangeHandler}
-        onChangeWithInvalidFile={this.invalidFileHandler} />
+        <FontFileUploader
+          onChange={this.fileChangeHandler}
+          onChangeWithInvalidFile={this.invalidFileHandler} />
         <XheightBox
           xHeight={this.state.userXHeight}
-          xHeightToFontSize={this.xHeightToFontSize}/>
+          xHeightToFontSize={this.xHeightToFontSize} />
         <FontSizeBox
           fontSize={this.state.userFontSize}
           fontSizeToXHeight={this.fontSizeToXHeight} />
@@ -94,7 +95,7 @@ class App extends React.Component {
           fontFamily={this.state.fontFamily}
           fontSize={this.state.userFontSize}
           fontWeight={this.state.usWeightClass}
-          fontLoadFailure={this.state.fontLoadFailure}/>
+          fontLoadFailure={this.state.fontLoadFailure} />
       </div>
     );
   }
