@@ -6,6 +6,7 @@ const sampleParagraphs = 'different letter combinations, about what makes great 
 
 export default class SampleParagraphs extends React.Component {
   render() {
+    // Edge case handling
     if (this.props.fontLoadFailure) {
       return (
         <p>The uploaded font has failed to be loaded.</p>
@@ -19,10 +20,12 @@ export default class SampleParagraphs extends React.Component {
         <p>Please enter a number larger than 0 for font-size.</p>
       );
     } else {
+    // Render paragraphs
       const fontStyles = {
         fontFamily: this.props.fontFamily,
         fontSize: Number(this.props.fontSize),
-        fontWeight: this.props.fontWeight
+        fontWeight: this.props.fontWeight,
+        lineHeight: this.props.lineHeight
       };
       return (
         <p data-testid="SampleParagraph"

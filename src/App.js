@@ -153,6 +153,7 @@ class App extends React.Component {
           fontFamily={this.state.fontFamily}
           fontSize={this.state.userFontSize}
           fontWeight={this.state.usWeightClass}
+          lineHeight={this.state.userLineHeight}
           fontLoadFailure={this.state.fontLoadFailure}
           fontSizeValueZero={this.state.fontSizeValueZero}
           xHeightScaleZero={this.state.xHeightScaleZero} />
