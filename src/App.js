@@ -3,6 +3,8 @@ import React from 'react';
 import FontFileUploader from './components/FontFileUploader';
 import XheightBox from './components/XheightBox';
 import FontSizeBox from './components/FontSizeBox';
+import ModularScaleBoxes from './components/ModularScaleBoxes';
+import LineHeightBox from './components/LineHeightBox';
 import FontNameDisplay from './components/FontNameDisplay';
 import SampleParagraphs from './components/SampleParagraphs';
 
@@ -20,12 +22,17 @@ class App extends React.Component {
       unitsPerEm: '',
       userFontSize: '',
       userXHeight: '',
+      userScaleX: 1,
+      userScaleLine: 3,
+      userLineHeight: '',
       fontLoadFailure: false
     };
     this.fileChangeHandler = this.fileChangeHandler.bind(this);
     this.invalidFileHandler = this.invalidFileHandler.bind(this);
     this.xHeightToFontSize = this.xHeightToFontSize.bind(this);
     this.fontSizeToXHeight = this.fontSizeToXHeight.bind(this);
+    this.xHeightScaleToLineHeight = this.xHeightScaleToLineHeight.bind(this);
+    this.lineHeightScaleToLineHeight = this.lineHeightScaleToLineHeight.bind(this);
   }
 
   invalidFileHandler() {
@@ -78,6 +85,27 @@ class App extends React.Component {
     });
   }
 
+  xHeightScaleToLineHeight(xHeightScale) {
+    const newScale = this.state.userScaleLine / xHeightScale;
+    const newLineHeightValueInPixels = newScale * this.state.userXHeight;
+    const newLineHeightValue = (newLineHeightValueInPixels / this.state.userFontSize).toFixed(4);
+    this.setState({
+      userScaleX: xHeightScale,
+      userLineHeight: newLineHeightValue
+    });
+
+  }
+
+  lineHeightScaleToLineHeight(lineHeightScale) {
+    const newScale = lineHeightScale / this.state.userScaleX;
+    const newLineHeightValueInPixels = newScale * this.state.userXHeight;
+    const newLineHeightValue = (newLineHeightValueInPixels / this.state.userFontSize).toFixed(4);
+    this.setState({
+      userScaleLine: lineHeightScale,
+      userLineHeight: newLineHeightValue
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -87,10 +115,17 @@ class App extends React.Component {
         <XheightBox
           xHeight={this.state.userXHeight}
           xHeightToFontSize={this.xHeightToFontSize} />
+        <ModularScaleBoxes
+          xHeightScale={this.state.userScaleX}
+          lineHeightScale={this.state.userScaleLine}
+          xHeightScaleToLineHeight={this.xHeightScaleToLineHeight}
+          lineHeightScaleToLineHeight={this.lineHeightScaleToLineHeight} />
+        <FontNameDisplay fontName={this.state.fullName} />
         <FontSizeBox
           fontSize={this.state.userFontSize}
           fontSizeToXHeight={this.fontSizeToXHeight} />
-        <FontNameDisplay fontName={this.state.fullName} />
+        <LineHeightBox
+          lineHeight={this.state.userLineHeight} />
         <SampleParagraphs
           fontFamily={this.state.fontFamily}
           fontSize={this.state.userFontSize}
