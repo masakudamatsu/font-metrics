@@ -8,7 +8,7 @@ describe('The modular scale', () => {
   });
 
   describe('with Open Sans Regular at 16px', () => {
-    beforeEach(() => {
+    before(() => {
       const fontFileName = 'OpenSans-Regular.ttf';
       const fontSizeValue = '16';
 
@@ -24,7 +24,7 @@ describe('The modular scale', () => {
         });
       cy.get('[data-testid=FontSizeBox]').type(fontSizeValue);
     });
-    afterEach(() => {
+    beforeEach(() => {
       cy.get('[data-testid=ScaleBoxX]').clear();
       cy.get('[data-testid=ScaleBoxLine]').clear();
     });
