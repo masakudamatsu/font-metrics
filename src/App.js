@@ -36,6 +36,7 @@ class App extends React.Component {
     this.xHeightScaleToLineHeight = this.xHeightScaleToLineHeight.bind(this);
     this.lineHeightScaleToLineHeight = this.lineHeightScaleToLineHeight.bind(this);
     this.getNewLineHeight = this.getNewLineHeight.bind(this);
+    this.lineHeightToScale = this.lineHeightToScale.bind(this);
   }
 
   invalidFileHandler() {
@@ -129,6 +130,16 @@ class App extends React.Component {
     return (newLineHeightValueInPixels / this.state.userFontSize).toFixed(4);
   }
 
+  lineHeightToScale(newLineHeightValue) {
+    const newLineHeightValueInPixels = this.state.userFontSize * newLineHeightValue;
+    const newLineHeightScale = (newLineHeightValueInPixels / this.state.userXHeight).toFixed(4);
+    this.setState({
+      userLineHeight: newLineHeightValue,
+      userScaleX: 1,
+      userScaleLine: newLineHeightScale
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -148,7 +159,8 @@ class App extends React.Component {
           fontSize={this.state.userFontSize}
           fontSizeToXHeight={this.fontSizeToXHeight} />
         <LineHeightBox
-          lineHeight={this.state.userLineHeight} />
+          lineHeight={this.state.userLineHeight}
+          lineHeightToScale={this.lineHeightToScale} />
         <SampleParagraphs
           fontFamily={this.state.fontFamily}
           fontSize={this.state.userFontSize}

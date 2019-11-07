@@ -6,6 +6,8 @@ export default class LineHeightBox extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {
+    const lineHeightValue = event.target.value;
+    this.props.lineHeightToScale(lineHeightValue);
   }
   render() {
     return (
