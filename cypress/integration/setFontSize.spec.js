@@ -9,6 +9,14 @@ describe('Setting font-size', () => {
     cy.get('[data-testid=FontSizeBox]').clear();
   });
 
+  describe('Entering zero', () => {
+    it('Shows an error message: "Please enter a number larger than 0"', () => {
+      const fontSizeValue = 0;
+      cy.get('[data-testid=FontSizeBox]').type(fontSizeValue);
+      cy.contains("Please enter a number larger than 0");
+    });
+  });
+
   describe('after uploading Open Sans Regular', () => {
     beforeEach(() => {
       const fontFileName = 'OpenSans-Regular.ttf';
