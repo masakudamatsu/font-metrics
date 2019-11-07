@@ -10,6 +10,10 @@ export default class SampleParagraphs extends React.Component {
       return (
         <p>The uploaded font has failed to be loaded.</p>
       );
+    } else if (this.props.xHeightScaleZero) {
+      return(
+        <p>Please enter a number larger than 0 for x-height.</p>
+      );
     } else {
       const fontStyles = {
         fontFamily: this.props.fontFamily,

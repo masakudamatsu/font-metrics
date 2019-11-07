@@ -25,7 +25,8 @@ class App extends React.Component {
       userScaleX: 1,
       userScaleLine: 3,
       userLineHeight: '',
-      fontLoadFailure: false
+      fontLoadFailure: false,
+      xHeightScaleZero: false
     };
     this.fileChangeHandler = this.fileChangeHandler.bind(this);
     this.invalidFileHandler = this.invalidFileHandler.bind(this);
@@ -87,12 +88,21 @@ class App extends React.Component {
   }
 
   xHeightScaleToLineHeight(xHeightScale) {
-    const newScale = this.state.userScaleLine / xHeightScale;
-    const newLineHeightValue = this.getNewLineHeight(newScale);
-    this.setState({
-      userScaleX: xHeightScale,
-      userLineHeight: newLineHeightValue
-    });
+    if (xHeightScale === '0') {
+      this.setState({
+        xHeightScaleZero: true
+      });
+    } else {
+      this.setState({
+        xHeightScaleZero: false
+      });
+      const newScale = this.state.userScaleLine / xHeightScale;
+      const newLineHeightValue = this.getNewLineHeight(newScale);
+      this.setState({
+        userScaleX: xHeightScale,
+        userLineHeight: newLineHeightValue
+      });
+    }
   }
 
   lineHeightScaleToLineHeight(lineHeightScale) {
@@ -133,7 +143,8 @@ class App extends React.Component {
           fontFamily={this.state.fontFamily}
           fontSize={this.state.userFontSize}
           fontWeight={this.state.usWeightClass}
-          fontLoadFailure={this.state.fontLoadFailure} />
+          fontLoadFailure={this.state.fontLoadFailure}
+          xHeightScaleZero={this.state.xHeightScaleZero} />
       </div>
     );
   }
