@@ -14,6 +14,10 @@ export default class SampleParagraphs extends React.Component {
       return(
         <p>Please enter a number larger than 0 for x-height.</p>
       );
+    } else if (this.props.fontSizeValueZero) {
+      return(
+        <p>Please enter a number larger than 0 for font-size.</p>
+      );
     } else {
       const fontStyles = {
         fontFamily: this.props.fontFamily,
