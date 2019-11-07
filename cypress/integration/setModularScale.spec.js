@@ -28,6 +28,13 @@ describe('The modular scale', () => {
       cy.get('[data-testid=ScaleBoxX]').clear();
       cy.get('[data-testid=ScaleBoxLine]').clear();
     });
+    describe('Setting the x-height scale to be 0', () => {
+      it('Shows an error message: "Please enter a number larger than 0"', () => {
+        const xHeightScale = 0;
+        cy.get('[data-testid=ScaleBoxX]').type(xHeightScale);
+        cy.contains("Please enter a number larger than 0");
+      });
+    });
     describe('Choosing the x-height to line-height ratio to be 1:3', () => {
       beforeEach(() => {
         const xHeightScale = 1;
