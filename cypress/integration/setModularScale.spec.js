@@ -8,10 +8,9 @@ describe('The modular scale', () => {
   });
 
   describe('with Open Sans Regular at 16px', () => {
+    const fontFileName = 'OpenSans-Regular.ttf';
+    const fontSizeValue = '16';
     before(() => {
-      const fontFileName = 'OpenSans-Regular.ttf';
-      const fontSizeValue = '16';
-
       cy.fixture(fontFileName, 'binary')
         .then(Cypress.Blob.binaryStringToBlob)
         .then((fontFile) => {
@@ -36,27 +35,35 @@ describe('The modular scale', () => {
       });
     });
     describe('Choosing the x-height to line-height ratio to be 1:3', () => {
+      const xHeightScale = 1;
+      const lineHeightScale = 3;
+      const expectedLineHeightValue = '1.6055';
       beforeEach(() => {
-        const xHeightScale = 1;
-        const lineHeightScale = 3;
         cy.get('[data-testid=ScaleBoxX]').type(xHeightScale);
         cy.get('[data-testid=ScaleBoxLine]').type(lineHeightScale);
       });
       it('Sets the line-height property value to be 1.6055', () => {
-        const expectedLineHeightValue = '1.6055';
         cy.get('[data-testid=LineHeightBox]').should('have.value', expectedLineHeightValue);
+      });
+      it('Renders the sample paragraphs accordingly', () => {
+        const expectedLineHeight = `${Number(fontSizeValue) * Number(expectedLineHeightValue)}px`;
+        cy.get('[data-testid=SampleParagraph]').should('have.css', 'line-height', expectedLineHeight);
       });
     })
     describe('Choosing the x-height to line-height ratio to be 2:5', () => {
+      const xHeightScale = 2;
+      const lineHeightScale = 5;
+      const expectedLineHeightValue = '1.3379';
       beforeEach(() => {
-        const xHeightScale = 2;
-        const lineHeightScale = 5;
         cy.get('[data-testid=ScaleBoxX]').type(xHeightScale);
         cy.get('[data-testid=ScaleBoxLine]').type(lineHeightScale);
       });
       it('Sets the line-height property value to be 1.3379', () => {
-        const expectedLineHeightValue = '1.3379';
         cy.get('[data-testid=LineHeightBox]').should('have.value', expectedLineHeightValue);
+      });
+      it('Renders the sample paragraphs accordingly', () => {
+        const expectedLineHeight = `${Number(fontSizeValue) * Number(expectedLineHeightValue)}px`;
+        cy.get('[data-testid=SampleParagraph]').should('have.css', 'line-height', expectedLineHeight);
       });
     });
 
